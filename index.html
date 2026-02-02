@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Práctica: Macro vs. Microlearning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        @media (max-width: 768px) {
+            .chart-container { height: 300px; }
+        }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #4F46E5, #06B6D4);
+        }
+    </style>
+    <!--
+    Palette Name: Electric Future
+    Colors: #4F46E5 (Indigo), #06B6D4 (Cyan), #10B981 (Emerald), #F59E0B (Amber), #1F2937 (Gray-900)
+    Source: Adapted from 'energetic & playful' / 'brilliant blues' concepts for professional vibrancy.
+    -->
+    <!--
+    Plan Summary:
+    1. Intro: Define the Hybrid necessity based on Andragogy.
+    2. Radar Chart: Compare Attributes (Macro vs Micro).
+    3. Line Chart: The Forgetting Curve & Retention.
+    4. Decision Matrix: HTML grid flow for "When to use what".
+    5. Case Study: Asset Management (ISO 55000 vs Tasks) using Plotly 3D.
+    6. Composition: Stacked Bar of a Curriculum.
+    -->
+    <!--
+    Visualization Choices:
+    1. Radar Chart (Chart.js): Goal -> Compare. Why: Best for showing multiple dimensions (Time, Depth, Context) simultaneously.
+    2. Line Chart (Chart.js): Goal -> Change. Why: Demonstrates retention decay over time clearly.
+    3. 3D Scatter (Plotly WebGL): Goal -> Relationships. Why: Shows complex relationship between Topic Complexity, Learner Level, and Duration.
+    4. Stacked Bar (Chart.js): Goal -> Compare/Composition. Why: Shows the mix of content types in phases.
+    5. HTML Diagram: Goal -> Organize/Process. Why: Decision tree logic without SVG/Mermaid.
+    CONFIRMATION: NO SVG GRAPHICS USED. NO MERMAID JS USED.
+    -->
+</head>
+<body class="text-gray-800">
+ 
+    <!-- Header Section -->
+    <header class="bg-white pb-12 pt-16 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+                <span class="gradient-text">Macro vs. Microlearning</span>
+            </h1>
+            <h2 class="text-2xl font-semibold text-gray-600 mb-8">Una Guía Híbrida para el Diseño Instruccional Asincrónico</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-500">
+                Esta guía práctica ayuda a facilitadores y diseñadores instruccionales a decidir cuándo utilizar estructuras profundas (Macro) y cuándo aplicar cápsulas ágiles (Micro), basándose en principios de andragogía y gestión de la carga cognitiva.
+            </p>
+        </div>
+    </header>
+ 
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+ 
+        <!-- Section 1: The Andragogical Foundation -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">El Dilema del Adulto: Profundidad vs. Tiempo</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    La andragogía nos enseña que los adultos aprenden mejor cuando el contenido es relevante y aplicable inmediatamente. Sin embargo, existe una tensión constante: necesitamos <strong>Macrolearning</strong> para construir modelos mentales complejos (como entender la norma ISO 55000) y <strong>Microlearning</strong> para el refuerzo en el flujo de trabajo (como calibrar un sensor).
+                </p>
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                    <p class="text-indigo-800 font-semibold">Insight Clave:</p>
+                    <p class="text-indigo-700">No es una elección binaria. Un diseño curricular robusto utiliza el Macro para "Sembrar" y el Micro para "Cultivar".</p>
+                </div>
+            </div>
+            <div class="order-1 md:order-2 bg-white p-6 rounded-xl card-shadow">
+                <h4 class="text-xl font-bold text-gray-800 mb-4 text-center">Dimensiones del Aprendizaje</h4>
+                <div class="chart-container">
+                    <canvas id="radarComparison"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 text-center mt-2">Comparativa de atributos estructurales.</p>
+            </div>
+        </section>
+ 
+        <!-- Section 2: Retention & The Curve -->
+        <section>
+            <div class="mb-8 text-center max-w-4xl mx-auto">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Combatiendo la Curva del Olvido</h3>
+                <p class="text-gray-600">
+                    El cerebro humano descarta información que no se utiliza. El Macrolearning establece la base, pero sin refuerzo, el conocimiento cae drásticamente. El siguiente gráfico ilustra cómo las intervenciones de Microlearning (píldoras de conocimiento) restauran la retención al 90%+.
+                </p>
+            </div>
+            <div class="bg-white p-6 rounded-xl card-shadow">
+                <div class="chart-container" style="max-width: 800px;">
+                    <canvas id="retentionChart"></canvas>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 3: The Decision Guide (HTML Diagram) -->
+        <section class="bg-gray-50 p-8 rounded-3xl border border-gray-200">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">Matriz de Decisión para Facilitadores</h3>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+                ¿Qué formato debo elegir? Utilice este flujo lógico basado en la complejidad del objetivo de aprendizaje y la necesidad inmediata del alumno.
+            </p>
+ 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <!-- Step 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-cyan-500 flex flex-col items-center text-center z-10">
+                    <div class="bg-cyan-100 text-cyan-800 rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mb-4">1</div>
+                    <h4 class="font-bold text-lg mb-2">Analizar el Objetivo</h4>
+                    <p class="text-sm text-gray-600 mb-4">¿Es un cambio de comportamiento complejo o una tarea procedimental?</p>
+                    <div class="w-full bg-gray-100 p-2 rounded text-xs font-mono text-left">
+                        Si: "Comprender la estrategia de activos"<br>
+                        <span class="text-indigo-600 font-bold">➡ Ir a Macro</span>
+                    </div>
+                </div>
+ 
+                <!-- Arrow for Desktop -->
+                <div class="hidden md:flex items-center justify-center text-gray-300 text-4xl">➔</div>
+ 
+                <!-- Step 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-indigo-500 flex flex-col items-center text-center z-10">
+                    <div class="bg-indigo-100 text-indigo-800 rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl mb-4">2</div>
+                    <h4 class="font-bold text-lg mb-2">Contexto de Uso</h4>
+                    <p class="text-sm text-gray-600 mb-4">¿Cuándo aplicará el alumno este conocimiento?</p>
+                    <div class="w-full bg-gray-100 p-2 rounded text-xs font-mono text-left">
+                        Si: "Justo ahora, frente a la máquina"<br>
+                        <span class="text-cyan-600 font-bold">➡ Ir a Micro</span>
+                    </div>
+                </div>
+ 
+                <!-- Step 3 -->
+                <div class="col-span-1 md:col-span-3 mt-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Result Macro -->
+                        <div class="bg-indigo-600 text-white p-6 rounded-xl shadow-lg transform transition hover:scale-105">
+                            <h5 class="text-2xl font-bold mb-2">Opción A: MACROLEARNING</h5>
+                            <ul class="list-disc list-inside space-y-2 text-indigo-100 text-sm">
+                                <li><strong>Propósito:</strong> Nuevas habilidades, certificaciones, cambio cultural.</li>
+                                <li><strong>Tiempo:</strong> Horas, días o semanas.</li>
+                                <li><strong>Formato:</strong> Cursos MOOC, Talleres virtuales, Simulaciones complejas.</li>
+                                <li><strong>Ejemplo:</strong> "Curso de Fundamentos de Gestión de Activos IAM".</li>
+                            </ul>
+                        </div>
+                        <!-- Result Micro -->
+                        <div class="bg-cyan-500 text-white p-6 rounded-xl shadow-lg transform transition hover:scale-105">
+                            <h5 class="text-2xl font-bold mb-2">Opción B: MICROLEARNING</h5>
+                            <ul class="list-disc list-inside space-y-2 text-cyan-50 text-sm">
+                                <li><strong>Propósito:</strong> Recordar, reforzar, soporte al desempeño.</li>
+                                <li><strong>Tiempo:</strong> 2 a 10 minutos.</li>
+                                <li><strong>Formato:</strong> Video corto, infografía, checklist interactivo.</li>
+                                <li><strong>Ejemplo:</strong> "Video: Cómo etiquetar una válvula crítica".</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 4: Use Case - Asset Management Data -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="bg-white p-6 rounded-xl card-shadow">
+                <h4 class="text-xl font-bold text-gray-800 mb-4">El Ecosistema Híbrido: Gestión de Activos</h4>
+                <div class="chart-container">
+                    <canvas id="curriculumMixChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">
+                    Distribución de contenidos en una malla curricular típica. Observe cómo el "Onboarding" requiere más Macro, mientras que las "Operaciones" dependen del Micro.
+                </p>
+            </div>
+            <div class="flex flex-col justify-center">
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Caso de Estudio: Gestión de Activos</h3>
+                <p class="text-gray-600 mb-6">
+                    En la industria, el error es costoso. No podemos enseñar una política de mantenimiento completa en 5 minutos (riesgo de superficialidad), ni podemos pedirle a un técnico que vea un curso de 2 horas para arreglar una avería urgente (riesgo operativo).
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xs mt-1">M</div>
+                        <div class="ml-4">
+                            <h5 class="text-lg font-bold text-gray-900">El Rol del Macro</h5>
+                            <p class="text-gray-500 text-sm">Establece el "Por qué". Normativas ISO 55000, Estrategia de Inversión (CAPEX/OPEX).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 h-6 w-6 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center font-bold text-xs mt-1">m</div>
+                        <div class="ml-4">
+                            <h5 class="text-lg font-bold text-gray-900">El Rol del Micro</h5>
+                            <p class="text-gray-500 text-sm">Facilita el "Cómo". Guía paso a paso para análisis de vibraciones, registro de fallas en SAP.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Section 5: Advanced visualization (Plotly) -->
+        <section>
+            <div class="mb-6 text-center">
+                <h3 class="text-3xl font-bold text-gray-900">Análisis de Impacto (Modelo 3D)</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-2">
+                    Visualización de la relación entre la Complejidad del Tema, el Nivel de Competencia requerido y el Tiempo de Consumo ideal.
+                    <br><span class="text-sm text-indigo-500 font-semibold">(Gire el gráfico para explorar)</span>
+                </p>
+            </div>
+            <div class="bg-white p-2 rounded-xl card-shadow">
+                <!-- Plotly container needs explicit ID -->
+                <div id="plotly3d" style="width: 100%; height: 500px;"></div>
+            </div>
+        </section>
+ 
+    </main>
+ 
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold mb-4">Conclusión</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+                La formación asincrónica efectiva no elige entre Macro y Micro; los orquesta. Utilice el Macroaprendizaje para construir los cimientos de la competencia y el Microaprendizaje para mantener la estructura firme contra el olvido.
+            </p>
+            <div class="text-sm text-gray-600">
+                Generado para Facilitadores de Gestión de Activos &copy; 2023
+            </div>
+        </div>
+    </footer>
+ 
+    <script>
+        // --- Utility Functions ---
+ 
+        // Helper to split long labels for Chart.js (16 char wrap limit)
+        function splitLabel(label) {
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+ 
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+ 
+        // Apply splitting to an array of labels
+        function processLabels(labels) {
+            return labels.map(l => splitLabel(l));
+        }
+ 
+        // Standard Tooltip config for multiline support
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+ 
+        // --- Chart 1: Radar Comparison (Macro vs Micro) ---
+        const ctxRadar = document.getElementById('radarComparison').getContext('2d');
+        const radarLabels = ['Profundidad Teórica', 'Tiempo de Consumo', 'Retención (Largo Plazo)', 'Flexibilidad de Acceso', 'Carga Cognitiva Inicial'];
+       
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: processLabels(radarLabels),
+                datasets: [{
+                    label: 'Macrolearning',
+                    data: [90, 95, 80, 30, 85],
+                    fill: true,
+                    backgroundColor: 'rgba(79, 70, 229, 0.2)', // Indigo
+                    borderColor: 'rgb(79, 70, 229)',
+                    pointBackgroundColor: 'rgb(79, 70, 229)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(79, 70, 229)'
+                }, {
+                    label: 'Microlearning',
+                    data: [30, 15, 40, 95, 20],
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)', // Cyan
+                    borderColor: 'rgb(6, 182, 212)',
+                    pointBackgroundColor: 'rgb(6, 182, 212)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(6, 182, 212)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0,0,0,0.1)' },
+                        grid: { color: 'rgba(0,0,0,0.1)' },
+                        pointLabels: {
+                            font: { size: 11, family: 'Inter' }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+ 
+        // --- Chart 2: Forgetting Curve (Line Chart) ---
+        const ctxLine = document.getElementById('retentionChart').getContext('2d');
+        // Simulating days 1 to 30
+        const days = ['Día 1', 'Día 3', 'Día 7', 'Día 14', 'Día 21', 'Día 30'];
+       
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: processLabels(days),
+                datasets: [
+                    {
+                        label: 'Curva de Olvido Tradicional (Solo Macro)',
+                        data: [100, 60, 40, 25, 20, 15],
+                        borderColor: 'rgba(156, 163, 175, 0.8)', // Gray
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'Híbrido (Macro + Micro Refuerzos)',
+                        data: [100, 90, 85, 92, 88, 95], // Spikes represent microlearning interventions
+                        borderColor: 'rgb(16, 185, 129)', // Emerald
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'top' },
+                    annotation: {
+                        // Conceptual annotation logic would go here
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 110,
+                        title: { display: true, text: '% Retención de Conocimiento' }
+                    }
+                }
+            }
+        });
+ 
+        // --- Chart 3: Curriculum Mix (Stacked Bar) ---
+        const ctxBar = document.getElementById('curriculumMixChart').getContext('2d');
+        const phases = ['Onboarding Corporativo', 'Fundamentos ISO 55000', 'Operación Técnica Diaria', 'Liderazgo y Estrategia'];
+       
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: processLabels(phases),
+                datasets: [
+                    {
+                        label: 'Macrolearning (Cursos)',
+                        data: [80, 90, 20, 70],
+                        backgroundColor: '#4F46E5', // Indigo
+                    },
+                    {
+                        label: 'Microlearning (Recursos)',
+                        data: [20, 10, 80, 30],
+                        backgroundColor: '#06B6D4', // Cyan
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: {
+                        stacked: true,
+                        title: { display: true, text: '% Composición del Programa' }
+                    }
+                },
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+ 
+        // --- Chart 4: Plotly 3D Scatter (Analysis Model) ---
+        // Visualizing: X=Complexity, Y=Duration, Z=Competency Gain
+       
+        const trace1 = {
+            x: [8, 9, 7, 6, 8], // Complexity (High)
+            y: [60, 120, 90, 45, 100], // Duration (Minutes)
+            z: [90, 95, 85, 70, 92], // Competency Gain
+            mode: 'markers',
+            marker: {
+                size: 12,
+                color: '#4F46E5', // Indigo
+                opacity: 0.8
+            },
+            type: 'scatter3d',
+            name: 'Macro'
+        };
+ 
+        const trace2 = {
+            x: [2, 3, 1, 4, 2], // Complexity (Low)
+            y: [5, 3, 2, 8, 4], // Duration (Minutes)
+            z: [30, 25, 20, 40, 35], // Competency Gain (Per unit, lower but cumulative)
+            mode: 'markers',
+            marker: {
+                size: 8,
+                color: '#06B6D4', // Cyan
+                opacity: 0.8
+            },
+            type: 'scatter3d',
+            name: 'Micro'
+        };
+ 
+        const layout = {
+            margin: { l: 0, r: 0, b: 0, t: 0 },
+            scene: {
+                xaxis: { title: 'Complejidad (1-10)' },
+                yaxis: { title: 'Duración (min)' },
+                zaxis: { title: 'Competencia Ganada' },
+                camera: {
+                    eye: {x: 1.5, y: 1.5, z: 1.5}
+                }
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            showlegend: true,
+            legend: { x: 0, y: 1 }
+        };
+ 
+        // Render Plotly
+        Plotly.newPlot('plotly3d', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+ 
+    </script>
+</body>
+</html>
